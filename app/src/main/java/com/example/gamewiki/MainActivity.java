@@ -36,18 +36,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = (Button)findViewById(R.id.button);
+//        text = (EditText) findViewById(R.id.itemName);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
+        getAllItem();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent search = new Intent(MainActivity.this, searchActivity.class );
                 startActivity(search);
 
-
             }
         });
-        getAllItem();//lấy dữ liệu
-        recyclerView.setAdapter(itemAdapter);
     }
 
     public void getAllItem (){
@@ -66,12 +65,11 @@ public class MainActivity extends AppCompatActivity {
     }
     private void handleResponse(ArrayList<item> itemList) {
         try {
-
-            text.setText(itemList.toString());
-            itemAdapter = new ItemAdapter(getApplicationContext(),itemList);
-            Toast.makeText(this,itemAdapter.toString(),Toast.LENGTH_LONG);
-
-
+            this.itemAdapter = new ItemAdapter(this,itemList);
+            this.recyclerView.setAdapter(this.itemAdapter);
+            this.itemAdapter.notifyDataSetChanged();
+            Log.i("item adapter", this.itemAdapter.toString());
+            recyclerView.setAdapter(this.itemAdapter);
         } catch (Exception e) {
             e.printStackTrace();
         }

@@ -20,9 +20,14 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ViewHolder> {
     Context context;
     ArrayList<item> listItem;
 
-    public ItemAdapter(Context context, ArrayList<item> listItem){
+    public ItemAdapter(Context context,ArrayList<item> itemList){
         this.context = context;
-        this.listItem = listItem;
+        this.listItem = itemList;
+    }
+
+    public  void addItem (ArrayList<item> i){
+        listItem.addAll(i);
+        notifyDataSetChanged();
     }
 
     @NonNull
