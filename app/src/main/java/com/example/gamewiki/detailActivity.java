@@ -2,19 +2,17 @@ package com.example.gamewiki;
 
 import static com.example.gamewiki.API.serviceAPI.BASE_SERVICE;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.gamewiki.API.request.dataRequest;
 import com.example.gamewiki.API.response.item;
 import com.example.gamewiki.API.serviceAPI;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-
-import java.util.ArrayList;
 
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;

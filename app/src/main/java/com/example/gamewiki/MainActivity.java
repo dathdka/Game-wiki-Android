@@ -3,6 +3,7 @@ package com.example.gamewiki;
 import static com.example.gamewiki.API.serviceAPI.BASE_SERVICE;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -28,12 +29,14 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
     Button btn;
     EditText text;
+    ItemAdapter itemAdapter;
+    RecyclerView recyclerView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        text = (EditText)findViewById(R.id.text);
         btn = (Button)findViewById(R.id.button);
+        recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -43,7 +46,8 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-        getAllItem();
+        getAllItem();//lấy dữ liệu
+        recyclerView.setAdapter(itemAdapter);
     }
 
     public void getAllItem (){
@@ -57,16 +61,22 @@ public class MainActivity extends AppCompatActivity {
         new CompositeDisposable().add(call.getAllItem()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError)
+                .subscribe(this::handleResponse, this::handleError)//xử lý dữ liệu trả về
         );
     }
     private void handleResponse(ArrayList<item> itemList) {
         try {
+
             text.setText(itemList.toString());
+            itemAdapter = new ItemAdapter(getApplicationContext(),itemList);
+            Toast.makeText(this,itemAdapter.toString(),Toast.LENGTH_LONG);
+
+
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
+
 
     private void handleError(Throwable throwable) {
         Toast.makeText(this, throwable.toString(), Toast.LENGTH_LONG).show();
