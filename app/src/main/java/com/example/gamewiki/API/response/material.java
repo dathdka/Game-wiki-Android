@@ -1,6 +1,8 @@
 package com.example.gamewiki.API.response;
 
-public class material {
+import java.io.Serializable;
+
+public class material implements Serializable {
     private String name;
     private int quantity;
 

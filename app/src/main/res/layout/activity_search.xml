@@ -7,15 +7,17 @@
     tools:context=".searchActivity">
 
     <EditText
-        android:id="@+id/editTextTextPersonName"
+        android:id="@+id/txtKeyWord"
         android:layout_width="308dp"
         android:layout_height="86dp"
         android:layout_marginStart="53dp"
         android:layout_marginTop="104dp"
         android:layout_marginEnd="50dp"
+        android:layout_marginBottom="59dp"
         android:ems="10"
         android:hint="Item name"
         android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/spinner1"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,10 +29,26 @@
         android:layout_marginStart="58dp"
         android:layout_marginTop="59dp"
         android:layout_marginEnd="49dp"
+        android:layout_marginBottom="48dp"
         android:background="@android:drawable/btn_dropdown"
-        android:spinnerMode="dropdown"
         android:contentDescription="Hello"
+        android:spinnerMode="dropdown"
+        app:layout_constraintBottom_toTopOf="@+id/btnSearch"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextTextPersonName" />
+        app:layout_constraintTop_toBottomOf="@+id/txtKeyWord" />
+
+    <Button
+        android:id="@+id/btnSearch"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="153dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="155dp"
+        android:layout_marginBottom="330dp"
+        android:text="Tìm kiếm"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner1" />
 </androidx.constraintlayout.widget.ConstraintLayout>

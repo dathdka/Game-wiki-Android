@@ -24,7 +24,7 @@ public interface serviceAPI {
     Observable<item> getItemById (@Body dataRequest bodyRequest);
 
     @POST("api/can-crafting")
-    Observable<ArrayList<String>> canCrafting (@Body dataRequest bodyRequest);
+    Observable<ArrayList<item>> canCrafting (@Body dataRequest bodyRequest);
 
     @POST("api/crafting")
     Observable<ArrayList<item>> crafting (@Body dataRequest bodyRequest);

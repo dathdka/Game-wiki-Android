@@ -1,8 +1,9 @@
 package com.example.gamewiki.API.response;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class item {
+public class item implements Serializable {
     private String _id;
     private String name;
     private String type;
@@ -10,29 +11,25 @@ public class item {
     private String image;
     private ArrayList<material> craftingMaterials;
     private int __v;
-
-    public int get__v() {
-        return __v;
-    }
-
-    public void set__v(int __v) {
-        this.__v = __v;
-    }
-
-    public String getCl() {
-        return cl;
-    }
-
-    public void setCl(String cl) {
-        this.cl = cl;
-    }
-
+    private String formula;
+    private ArrayList<item> materialArray;
     private String cl;
 
 
     public item() {
     }
-
+    public item(String _id, String name, String type, String droppedBy, String image, ArrayList<material> craftingMaterials, int __v, String formula, ArrayList<item> materialArray, String cl) {
+        this._id = _id;
+        this.name = name;
+        this.type = type;
+        this.droppedBy = droppedBy;
+        this.image = image;
+        this.craftingMaterials = craftingMaterials;
+        this.__v = __v;
+        this.formula = formula;
+        this.materialArray = materialArray;
+        this.cl = cl;
+    }
     public String get_id() {
         return _id;
     }
@@ -81,25 +78,39 @@ public class item {
         this.craftingMaterials = craftingMaterials;
     }
 
-    public item(String _id, String name, String type, String droppedBy, String image, ArrayList<material> craftingMaterials, int __v, String cl) {
-        this._id = _id;
-        this.name = name;
-        this.type = type;
-        this.droppedBy = droppedBy;
-        this.image = image;
-        this.craftingMaterials = craftingMaterials;
-        this.__v = __v;
-        this.cl = cl;
+    public String getFormula() {
+        return formula;
     }
+
+    public void setFormula(String formula) {
+        this.formula = formula;
+    }
+
+    public ArrayList<item> getMaterialArray() {
+        return materialArray;
+    }
+
+    public void setMaterialArray(ArrayList<item> materialArray) {
+        this.materialArray = materialArray;
+    }
+
     @Override
     public String toString() {
-        return "item{" +
-                "_id='" + _id + '\'' +
-                ", name='" + name + '\'' +
-                ", type='" + type + '\'' +
-                ", droppedBy='" + droppedBy + '\'' +
-                ", image='" + image + '\'' +
-                ", craftingMaterials=" + craftingMaterials +
-                '}';
+        String str = "" +
+                "Tên vật phẩm: " + name + "\n" +
+                "Loại vật phẩm: " + type + "\n" +
+                "Cách tìm: ";
+        str += droppedBy.isEmpty() ? "\t"+droppedBy : "\tVật phẩm không thể tìm kiếm theo cách thông thường" ;
+        str += "\nCông thức chế tạo chi tiết: \n" + formula;
+        return  str;
+    }
+
+    public String materialStrBuilder() {
+        String tempStr = "";
+        if (craftingMaterials != null)
+            for (int i = 0; i < craftingMaterials.size(); i++) {
+                tempStr += "\t"+craftingMaterials.get(i).getName() + "\t\tx" + craftingMaterials.get(i).getQuantity() + "\n";
+            }
+        return tempStr;
     }
 }

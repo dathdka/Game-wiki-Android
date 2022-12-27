@@ -10,12 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.Toast;
 
 import com.example.gamewiki.API.request.dataRequest;
 import com.example.gamewiki.API.response.item;
 import com.example.gamewiki.API.serviceAPI;
+import com.example.gamewiki.Adapter.ItemAdapter;
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 
 import java.util.ArrayList;
@@ -28,7 +28,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MainActivity extends AppCompatActivity {
     Button btn;
-    EditText text;
     ItemAdapter itemAdapter;
     RecyclerView recyclerView;
     @Override
@@ -36,9 +35,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         btn = (Button)findViewById(R.id.button);
-//        text = (EditText) findViewById(R.id.itemName);
         recyclerView = (RecyclerView)findViewById(R.id.recyclerview);
-        getAllItem();
+        if(!isDataFromSearch())
+            getAllItem();
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -47,6 +46,22 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public boolean isDataFromSearch (){
+        Intent intent = getIntent();
+        Bundle bundle = intent.getExtras();
+        ArrayList<item> itemList = new ArrayList<item>();
+        try {
+            itemList = (ArrayList<item>) bundle.getSerializable("itemList");
+        }catch (Exception e){
+            return false;
+        }
+        if(itemList.size()>0){
+            setView(itemList);
+            return true;
+        }
+        return false;
     }
 
     public void getAllItem (){
@@ -60,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
         new CompositeDisposable().add(call.getAllItem()
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribeOn(Schedulers.io())
-                .subscribe(this::handleResponse, this::handleError)//xử lý dữ liệu trả về
+                .subscribe(this::setView, this::handleError)
         );
     }
-    private void handleResponse(ArrayList<item> itemList) {
+    private void setView(ArrayList<item> itemList) {
         try {
             this.itemAdapter = new ItemAdapter(this,itemList);
             this.recyclerView.setAdapter(this.itemAdapter);
@@ -78,6 +93,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void handleError(Throwable throwable) {
         Toast.makeText(this, throwable.toString(), Toast.LENGTH_LONG).show();
+
         Log.e("loi",throwable.toString());
     }
 }

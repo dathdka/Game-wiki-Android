@@ -1,17 +1,15 @@
 package com.example.gamewiki.API.request;
 
 public class dataRequest {
-    private String secretKey;
+    private final String secretKey = "ThisIsKey";
     private String itemName;
     private String id;
+    //Test
     public dataRequest(){
-        secretKey = "ThisIsKey";
         itemName = "bronze";
         id = "637c9a53f8c7e15f1991c2b0";
     };
-
-    public dataRequest(String secretKey, String itemName, String id) {
-        this.secretKey = secretKey;
+    public dataRequest(String itemName, String id) {
         this.itemName = itemName;
         this.id = id;
     }
@@ -26,10 +24,6 @@ public class dataRequest {
 
     public String getSecretKey() {
         return secretKey;
-    }
-
-    public void setSecretKey(String secretKey) {
-        this.secretKey = secretKey;
     }
 
     public String getItemName() {
